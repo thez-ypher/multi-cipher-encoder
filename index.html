@@ -19,7 +19,7 @@
 
     function decodeAtbashCipher() {
       const inputText = document.getElementById('inputText').value;
-      const decodedText = atbashCipherDecoder(inputText);
+      const decodedText = atbashCipherDecoder(inputText.toUpperCase()); // Ensure all letters are in uppercase
       document.getElementById('outputText').textContent = decodedText;
     }
   </script>
