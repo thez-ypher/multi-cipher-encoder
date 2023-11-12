@@ -1,64 +1,71 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cipher Encoder/Decoder</title>
+    <title>Cipher Encoder</title>
     <script>
-        function encodeDecodeText() {
+        function encodeText() {
             const inputText = document.getElementById('inputText').value;
-            const selectedCipher = document.getElementById('cipher').value;
-            let result = '';
+            const atbashResult = atbashCipher(inputText);
+            const caesarResult = caesarCipher(inputText, 3); // You can adjust the shift value
+            const rot13Result = rot13Cipher(inputText);
 
-            switch(selectedCipher) {
-                case 'atbash':
-                    result = atbashCipher(inputText);
-                    break;
-                case 'caesar':
-                    result = caesarCipher(inputText, 3); // You can adjust the shift value
-                    break;
-                case 'rot13':
-                    result = rot13Cipher(inputText);
-                    break;
-                // Add more cases for other ciphers
-
-                default:
-                    result = 'Invalid cipher selection';
-            }
+            const result = `Atbash: ${atbashResult}\nCaesar: ${caesarResult}\nROT13: ${rot13Result}`;
 
             document.getElementById('outputText').value = result;
         }
 
         function atbashCipher(text) {
-            // Implement Atbash cipher logic
-            // ...
+            return text
+                .split('')
+                .map(char => {
+                    if (char.match(/[a-z]/i)) {
+                        const code = char.charCodeAt(0);
+                        const offset = code < 91 ? 65 : 97;
+                        return String.fromCharCode((offset + 25) - (code - offset));
+                    }
+                    return char;
+                })
+                .join('');
         }
 
         function caesarCipher(text, shift) {
-            // Implement Caesar cipher logic
-            // ...
+            return text
+                .split('')
+                .map(char => {
+                    if (char.match(/[a-z]/i)) {
+                        const code = char.charCodeAt(0);
+                        const offset = code < 91 ? 65 : 97;
+                        return String.fromCharCode((code - offset + shift) % 26 + offset);
+                    }
+                    return char;
+                })
+                .join('');
         }
 
         function rot13Cipher(text) {
-            // Implement ROT13 cipher logic
-            // ...
+            return text
+                .split('')
+                .map(char => {
+                    if (char.match(/[a-z]/i)) {
+                        const code = char.charCodeAt(0);
+                        const offset = code < 91 ? 65 : 97;
+                        return String.fromCharCode((code - offset + 13) % 26 + offset);
+                    }
+                    return char;
+                })
+                .join('');
         }
     </script>
 </head>
 <body>
-    <h1>Cipher Encoder/Decoder</h1>
+    <h1>Cipher Encoder</h1>
     <label for="inputText">Enter Text:</label>
     <textarea id="inputText" rows="4" cols="50"></textarea>
 
-    <label for="cipher">Select Cipher:</label>
-    <select id="cipher">
-        <option value="atbash">Atbash</option>
-        <option value="caesar">Caesar</option>
-        <option value="rot13">ROT13</option>
-        <!-- Add more cipher options here -->
-    </select>
-
-    <button onclick="encodeDecodeText()">Encode/Decode</button>
+    <button onclick="encodeText()">Encode Text</button>
 
     <label for="outputText">Result:</label>
     <textarea id="outputText" rows="4" cols="50" readonly></textarea>
