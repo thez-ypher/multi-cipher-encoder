@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Encoder/Decoder</title>
+    <script>
+        function encodeDecodeText() {
+            const inputText = document.getElementById('inputText').value;
+            const selectedCipher = document.getElementById('cipher').value;
+            let result = '';
+
+            switch(selectedCipher) {
+                case 'atbash':
+                    result = atbashCipher(inputText);
+                    break;
+                case 'caesar':
+                    result = caesarCipher(inputText, 3); // You can adjust the shift value
+                    break;
+                case 'rot13':
+                    result = rot13Cipher(inputText);
+                    break;
+                // Add more cases for other ciphers
+
+                default:
+                    result = 'Invalid cipher selection';
+            }
+
+            document.getElementById('outputText').value = result;
+        }
+
+        function atbashCipher(text) {
+            // Implement Atbash cipher logic
+            // ...
+        }
+
+        function caesarCipher(text, shift) {
+            // Implement Caesar cipher logic
+            // ...
+        }
+
+        function rot13Cipher(text) {
+            // Implement ROT13 cipher logic
+            // ...
+        }
+    </script>
+</head>
+<body>
+    <h1>Cipher Encoder/Decoder</h1>
+    <label for="inputText">Enter Text:</label>
+    <textarea id="inputText" rows="4" cols="50"></textarea>
+
+    <label for="cipher">Select Cipher:</label>
+    <select id="cipher">
+        <option value="atbash">Atbash</option>
+        <option value="caesar">Caesar</option>
+        <option value="rot13">ROT13</option>
+        <!-- Add more cipher options here -->
+    </select>
+
+    <button onclick="encodeDecodeText()">Encode/Decode</button>
+
+    <label for="outputText">Result:</label>
+    <textarea id="outputText" rows="4" cols="50" readonly></textarea>
+</body>
+</html>
